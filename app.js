@@ -1181,7 +1181,7 @@
             h(
               GlassCard, { className: "p-4 !rounded-[16px] flex gap-3" },
               h("div", { className: "w-8 h-8 rounded-full bg-emerald-500/20 flex items-center justify-center" }, h(Shield, { size: 14, className: "text-emerald-400" })),
-              h("div", { className: "text-[12px] text-white/60" }, "Pay using any of the methods above, then tap Submit — your package, selected items, and payment details open in WhatsApp, ready to send to the tour guide for confirmation.")
+              h("div", { className: "text-[12px] text-white/60" }, "Pay using any of the methods above, then tap Submit — when you are ready to chat with your tour guide.")
             ),
             submitError && h("div", { className: "text-[12px] text-amber-300" }, submitError),
             h("button", {
