@@ -1188,7 +1188,7 @@
               onClick: submitBookingViaWhatsApp,
               disabled: advance < minAdvance,
               className: "kc-whatsapp-btn"
-            }, h(Phone, { size: 18 }), t("submitBookingButton", "Submit & Continue on WhatsApp"))
+            }, h(Phone, { size: 18 }), t("submitBookingButton", "Submit"))
           )
         )
       )
@@ -1228,7 +1228,7 @@
               className: "kc-whatsapp-btn"
             },
             h(Phone, { size: 18 }),
-            "Open WhatsApp Again"
+            "WhatsApp"
           )
         ),
         h("button", { onClick: function () { setPage(1); setPkg(null); setBookingCode(""); setSubmitError(""); setSubmitted(false); }, className: "mt-4 w-full bg-white/5 border border-white/10 py-3 rounded-full font-semibold" }, t("backToHome", "Back to Home"))
