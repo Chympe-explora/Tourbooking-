@@ -132,6 +132,16 @@
       // calculation that checks whether a child is charged. ----
       childFreeAge: 10,
 
+      // ---- Children under childFreeAge are free of charge for the
+      // package price / adventure activities themselves, but they still
+      // use a life jacket and still go through the entry gate, so these
+      // two small per-child fees are charged even for a "free" child
+      // whenever activities are part of the booking (Shared Tour always
+      // includes activities; Camping only when "Adventure Activities" is
+      // selected). Adjust these two numbers any time. ----
+      childJacketFee: 100,  // ₹ per free child — life jacket
+      childEntryFee: 50,    // ₹ per free child — entry fee
+
       // ---- Minimum advance payment (₹) required to submit a booking ----
       minAdvance: 500
     };
@@ -290,7 +300,7 @@
             "Boat Rafting",
             "Entry Fee, Life Jacket & Basic First Aid",
             "Lunch thali optional",
-            "Children under {childFreeAge} free"
+            "Children under {childFreeAge} free (life jacket & entry fee still apply)"
           ]
         },
         camping: {
@@ -363,7 +373,7 @@
 "Khaddum (Chympe) Waterfall Visit",
 "Waterfall Swimming"
         ],
-        childFreeText: "Note: Children under {childFreeAge} are free of charge.",
+        childFreeText: "Note: Children under {childFreeAge} are free of charge, except for a small life jacket ({childJacketFee}) and entry fee ({childEntryFee}).",
         batchText: [
           "Note: One shared batch consists of 8 members.",
           "Advance booking must be completed at least 3 days before the tour.",
@@ -401,7 +411,7 @@
         mealsYes: "Yes",
         mealsNo: "No",
         guideTitle: "Overnight Guide",
-        guideNoteTemplate: "Note: An overnight guide is mandatory for all camping bookings and covers guest safety and campsite supervision. Camping without a guide is not permitted. Children under {childFreeAge} are not charged for meals or activities.",
+        guideNoteTemplate: "Note: An overnight guide is mandatory for all camping bookings and covers guest safety and campsite supervision. Camping without a guide is not permitted. Children under {childFreeAge} are not charged for meals or activities, except a small life jacket ({childJacketFee}) and entry fee ({childEntryFee}) if activities are selected.",
         guideMandatoryLabel: "yes (mandatory)",
         jeepTitle: "4×4 Jeep (Pickup & Drop)",
         jeepPriceUnit: " Per Group",
@@ -658,6 +668,8 @@
   need(window.KC_PRICES, "privatePackage.jeep", "number");
   need(window.KC_PRICES, "privatePackage.guide", "number");
   need(window.KC_PRICES, "childFreeAge", "number");
+  need(window.KC_PRICES, "childJacketFee", "number");
+  need(window.KC_PRICES, "childEntryFee", "number");
   need(window.KC_PRICES, "minAdvance", "number");
   need(window.KC_CONTENT, "siteName", "string");
   need(window.KC_CONTENT, "whatsappNumber", "string");

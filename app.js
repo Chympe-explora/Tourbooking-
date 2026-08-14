@@ -176,6 +176,14 @@
     return childAges.filter(function (a) { return Number(a) >= PRICES.childFreeAge; }).length;
   }
 
+  // A child under childFreeAge doesn't pay the package/activities price,
+  // but still uses a life jacket and still goes through the entry gate —
+  // so this small flat fee is charged per free child whenever activities
+  // are actually part of the booking.
+  function freeChildFee() {
+    return Number(PRICES.childJacketFee || 0) + Number(PRICES.childEntryFee || 0);
+  }
+
   function sharedTourTotals(f) {
     var payingChildren = payingChildrenCount(f.childAges);
     var payingPersons = Number(f.adults || 0) + payingChildren;
@@ -186,19 +194,24 @@
       return { id: th.id, name: th.name, qty: qty, price: ST.lunchThaliPrice, cost: qty * ST.lunchThaliPrice };
     });
     var lunchCost = lunchLines.reduce(function (s, l) { return s + l.cost; }, 0);
+    // Shared Tour always includes the adventure activities, so every free
+    // child on this package is charged the life jacket + entry fee.
+    var childFeeCost = freeChildren * freeChildFee();
     return {
       adults: Number(f.adults || 0),
       freeChildren: freeChildren,
       payingPersons: payingPersons,
       pricePerPerson: ST.perPerson,
       lunchLines: lunchLines, lunchCost: lunchCost,
-      grandTotal: payingPersons * ST.perPerson + lunchCost
+      childFeeCost: childFeeCost,
+      grandTotal: payingPersons * ST.perPerson + lunchCost + childFeeCost
     };
   }
 
   function campingTotals(f) {
     var payingChildren = payingChildrenCount(f.childAges);
     var payingHeads = Number(f.adults || 0) + payingChildren;
+    var freeChildren = f.childAges.length - payingChildren;
     // Every line below is priced à la carte and simply summed — a visitor
     // can select 0 tents and decline meals and still book, paying only the
     // mandatory guide fee.
@@ -208,6 +221,9 @@
     var guideCost = PRICES.camping.overnightGuide; // mandatory, always charged
     var jeepCost = f.jeep === "yes" ? PRICES.camping.jeep : 0;
     var activitiesCost = f.activities === "yes" ? payingHeads * PRICES.camping.activitiesPerPerson : 0;
+    // Free children only need a life jacket + entry fee if they're
+    // actually joining the adventure activities.
+    var childFeeCost = f.activities === "yes" ? freeChildren * freeChildFee() : 0;
     var foodLines = PRICES.bambooMenu.map(function (item) {
       var qty = Number((f.foodQty || {})[item.id] || 0);
       return { id: item.id, name: item.name, qty: qty, price: item.price, cost: qty * item.price };
@@ -216,8 +232,9 @@
     return {
       payingHeads: payingHeads, tentsSelected: tentsSelected, tentCost: tentCost,
       mealsCost: mealsCost, guideCost: guideCost, jeepCost: jeepCost, activitiesCost: activitiesCost,
+      childFeeCost: childFeeCost,
       foodLines: foodLines, foodCost: foodCost,
-      grandTotal: tentCost + mealsCost + guideCost + jeepCost + activitiesCost + foodCost
+      grandTotal: tentCost + mealsCost + guideCost + jeepCost + activitiesCost + childFeeCost + foodCost
     };
   }
 
@@ -471,6 +488,7 @@
           ["Price Per Person", money(totals.pricePerPerson)]
         ];
         (totals.lunchLines || []).forEach(function (l) { if (l.qty > 0) stLines.push([l.name + " x" + l.qty, money(l.cost)]); });
+        if (totals.childFeeCost > 0) stLines.push(["Life Jacket & Entry Fee (" + totals.freeChildren + " free child" + (totals.freeChildren === 1 ? "" : "ren") + ")", money(totals.childFeeCost)]);
         return stLines;
       }
       if (pkg === "camping") {
@@ -480,6 +498,7 @@
         if (totals.mealsCost > 0) lines.push(["Meals (" + totals.payingHeads + " people)", money(totals.mealsCost)]);
         if (totals.jeepCost > 0) lines.push(["4x4 Jeep (Pickup & Drop)", money(totals.jeepCost)]);
         if (totals.activitiesCost > 0) lines.push(["Adventure Activities (" + totals.payingHeads + " people)", money(totals.activitiesCost)]);
+        if (totals.childFeeCost > 0) lines.push(["Life Jacket & Entry Fee (free children)", money(totals.childFeeCost)]);
         totals.foodLines.forEach(function (l) { if (l.qty > 0) lines.push([l.name + " x" + l.qty, money(l.cost)]); });
         return lines;
       }
@@ -658,7 +677,7 @@
     }
 
     var PKG = CONTENT.packages || {};
-    var pkgFillValues = { childFreeAge: PRICES.childFreeAge, mealsPerPerson: money(PRICES.camping.mealsPerPerson), overnightGuide: money(PRICES.camping.overnightGuide) };
+    var pkgFillValues = { childFreeAge: PRICES.childFreeAge, mealsPerPerson: money(PRICES.camping.mealsPerPerson), overnightGuide: money(PRICES.camping.overnightGuide), childJacketFee: money(PRICES.childJacketFee), childEntryFee: money(PRICES.childEntryFee) };
     var PACKAGES_PAGE = CONTENT.packagesPage || { subtitle: "", trustRow: [] };
     var GALLERY_PAGE = CONTENT.galleryPage || { subtitle: "", filters: ["All"], viewAllLabel: "" };
 
@@ -1168,8 +1187,8 @@
             h("button", {
               onClick: submitBookingViaWhatsApp,
               disabled: advance < minAdvance,
-              className: "w-full py-3 rounded-full bg-[#25D366] text-black font-semibold text-sm disabled:opacity-60 flex items-center justify-center gap-2"
-            }, h(Phone, { size: 16 }), t("submitBookingButton", "Submit"))
+              className: "kc-whatsapp-btn"
+            }, h(Phone, { size: 18 }), t("submitBookingButton", "Submit & Continue on WhatsApp"))
           )
         )
       )
@@ -1206,9 +1225,9 @@
             "a", {
               href: whatsappLink(),
               target: "_blank",
-              className: "w-full py-3 rounded-full font-semibold text-sm flex items-center justify-center gap-2 bg-[#25D366] text-black hover:bg-[#1DA851]"
+              className: "kc-whatsapp-btn"
             },
-            h(Phone, { size: 16 }),
+            h(Phone, { size: 18 }),
             "Open WhatsApp Again"
           )
         ),
