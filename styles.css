@@ -18,30 +18,11 @@
 @media (min-width:1024px){
   .lg\:grid-cols-3{grid-template-columns:repeat(3,minmax(0,1fr))}
 }
-.kc-whatsapp-btn{
-  width:100%;
-  display:flex;
-  align-items:center;
-  justify-content:center;
-  gap:8px;
-  padding:15px 20px;
-  border-radius:9999px;
-  border:1px solid #e2e2e2;
-  background:#ffffff;
-  color:#25D366;
-  font-weight:700;
-  font-size:15px;
-  box-shadow:0 4px 14px rgba(0,0,0,.15);
-  cursor:pointer;
-}
-.kc-whatsapp-btn:hover{
-  box-shadow:0 6px 18px rgba(0,0,0,.2);
-}
-.kc-whatsapp-btn:active{
-  transform:scale(.98);
-}
-.kc-whatsapp-btn:disabled{
-  opacity:.5;
-  cursor:not-allowed;
-  box-shadow:none;
-}
+/* --- WhatsApp submit button: a real filled button, not just text.
+   Self-contained plain CSS (not a Tailwind utility) since this site has
+   no build step / JIT compiler — arbitrary-value classes like
+   bg-[#25D366] silently do nothing here unless they're written out. --- */
+.kc-whatsapp-btn{width:100%;display:flex;align-items:center;justify-content:center;gap:8px;padding:15px 20px;border-radius:9999px;border:1px solid #e2e2e2;background:#ffffff;color:#25D366;font-weight:700;font-size:15px;letter-spacing:.01em;box-shadow:0 4px 14px rgba(0,0,0,.15);transition:transform .15s ease,box-shadow .15s ease,opacity .15s ease;cursor:pointer}
+.kc-whatsapp-btn:hover{box-shadow:0 6px 18px rgba(0,0,0,.2)}
+.kc-whatsapp-btn:active{transform:scale(.98)}
+.kc-whatsapp-btn:disabled{opacity:.5;cursor:not-allowed;box-shadow:none;transform:none}

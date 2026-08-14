@@ -1188,7 +1188,7 @@
               onClick: submitBookingViaWhatsApp,
               disabled: advance < minAdvance,
               className: "kc-whatsapp-btn"
-            }, h(Phone, { size: 18 }), t("submitBookingButton", "Submit"))
+            }, h(Phone, { size: 18 }), t("submitBookingButton", "Submit & Continue on WhatsApp"))
           )
         )
       )
