@@ -541,7 +541,7 @@
       guide: {
         name: "Senly Suchiang",
         role: "Lead Guide & Conservationist",
-        bio: "Born in the hills of Meghalaya, David is a local and he has explored Krem Chympe cave and chympe waterfall since childhood. He is a certified caver and guide.",
+        bio: "Born in the hills of Meghalaya, Senly is a local and he has explored Krem Chympe cave and chympe waterfall since childhood. He is a certified caver and guide.",
         image: window.KC_IMAGES.guide
       },
 
