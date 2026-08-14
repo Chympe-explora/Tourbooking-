@@ -474,28 +474,28 @@
         return stLines;
       }
       if (pkg === "camping") {
-        var lines = [
-          ["Tent" + (totals.tentsSelected === 1 ? "" : "s") + " x" + totals.tentsSelected, totals.tentsSelected > 0 ? money(totals.tentCost) : "Not selected"],
-          ["Overnight Guide (mandatory)", money(totals.guideCost)],
-          ["Meals" + (totals.mealsCost > 0 ? " (" + totals.payingHeads + " people)" : ""), totals.mealsCost > 0 ? money(totals.mealsCost) : "Not selected"],
-          ["4x4 Jeep (Pickup & Drop)", totals.jeepCost > 0 ? money(totals.jeepCost) : "Not selected"],
-          ["Adventure Activities", totals.activitiesCost > 0 ? money(totals.activitiesCost) + " (" + totals.payingHeads + " people)" : "Not selected"]
-        ];
-        totals.foodLines.forEach(function (l) { lines.push([l.name, l.qty > 0 ? money(l.cost) : "₹0"]); });
+        var lines = [];
+        if (totals.tentsSelected > 0) lines.push(["Tent" + (totals.tentsSelected === 1 ? "" : "s") + " x" + totals.tentsSelected, money(totals.tentCost)]);
+        lines.push(["Overnight Guide (mandatory)", money(totals.guideCost)]);
+        if (totals.mealsCost > 0) lines.push(["Meals (" + totals.payingHeads + " people)", money(totals.mealsCost)]);
+        if (totals.jeepCost > 0) lines.push(["4x4 Jeep (Pickup & Drop)", money(totals.jeepCost)]);
+        if (totals.activitiesCost > 0) lines.push(["Adventure Activities (" + totals.payingHeads + " people)", money(totals.activitiesCost)]);
+        totals.foodLines.forEach(function (l) { if (l.qty > 0) lines.push([l.name + " x" + l.qty, money(l.cost)]); });
         return lines;
       }
       if (pkg === "privatePackage") {
-        var ppLines = [
-          ["4x4 Jeep", totals.jeepCost > 0 ? money(totals.jeepCost) : "Not selected"],
+        var ppLines = [];
+        if (totals.jeepCost > 0) ppLines.push(["4x4 Jeep", money(totals.jeepCost)]);
+        ppLines.push(
           totals.campingOn
             ? ["Local Guide (waived — covered by Overnight Guide)", "₹0"]
-            : ["Local Guide (mandatory)", money(totals.guideCost)],
-          ["Adventure Activities", totals.activitiesCost > 0 ? money(totals.activitiesCost) + " (" + totals.people + " people)" : "Not selected"]
-        ];
+            : ["Local Guide (mandatory)", money(totals.guideCost)]
+        );
+        if (totals.activitiesCost > 0) ppLines.push(["Adventure Activities (" + totals.people + " people)", money(totals.activitiesCost)]);
         totals.lunchLines.forEach(function (l) { if (l.qty > 0) ppLines.push([l.name + " x" + l.qty, money(l.cost)]); });
         if (totals.campingOn) {
           ppLines.push(["Camping Tent Rental", money(totals.tentCost)]);
-          ppLines.push(["Camping Meals", totals.campingMealsCost > 0 ? money(totals.campingMealsCost) : "₹0"]);
+          if (totals.campingMealsCost > 0) ppLines.push(["Camping Meals", money(totals.campingMealsCost)]);
           ppLines.push(["Overnight Guide (mandatory)", money(totals.overnightGuideCost)]);
           totals.bambooLines.forEach(function (l) { if (l.qty > 0) ppLines.push([l.name + " x" + l.qty, money(l.cost)]); });
         }
@@ -1167,9 +1167,9 @@
             submitError && h("div", { className: "text-[12px] text-amber-300" }, submitError),
             h("button", {
               onClick: submitBookingViaWhatsApp,
-              disabled: advance < 500,
+              disabled: advance < minAdvance,
               className: "w-full py-3 rounded-full bg-[#25D366] text-black font-semibold text-sm disabled:opacity-60 flex items-center justify-center gap-2"
-            }, h(Phone, { size: 16 }), t("submitBookingButton", "Submit & Continue on WhatsApp"))
+            }, h(Phone, { size: 16 }), t("submitBookingButton", "Submit"))
           )
         )
       )
