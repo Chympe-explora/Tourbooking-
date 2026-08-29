@@ -431,8 +431,8 @@
             title: "How To Reach",
             items: [
               "Nearest big city: Shillong, about 120 km away.",
-              "Starting point: Khaddum Village, East Jaintia Hills, Meghalaya.",
-              "From Khaddum, it's roughly a 3 km forest trek (about 3–4 hours one way) to the cave entrance at Sielkan.",
+              "Starting point: Shillong ➡️ East Jaintia Hills ➡️ Brishyrnot ➡️ Krem Chympe waterfall.",
+              "From Brishyrnot it's roughly a 7 km forest trek (about 3–4 hours one way) to the cave entrance at khaddum.",
               "There are no signboards on the trail — this is an offbeat place, so a local guide is required, not optional."
             ]
           },
