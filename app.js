@@ -317,6 +317,7 @@
     var pkgState = useState(null); var pkg = pkgState[0], setPkg = pkgState[1];
     var menuState = useState(false); var mobileMenuOpen = menuState[0], setMobileMenuOpen = menuState[1];
     var galleryState = useState("All"); var galleryFilter = galleryState[0], setGalleryFilter = galleryState[1];
+    var GALLERY_PAGE = CONTENT.galleryPage || { subtitle: "", filters: ["All"], viewAllLabel: "" };
 
     var contactState = useState({ name: "", whatsapp: "", date: "" });
     var contact = contactState[0], setContact = contactState[1];
@@ -737,7 +738,6 @@
     var PKG = CONTENT.packages || {};
     var pkgFillValues = { childFreeAge: PRICES.childFreeAge, mealsPerPerson: money(PRICES.camping.mealsPerPerson), overnightGuide: money(PRICES.camping.overnightGuide), childJacketFee: money(PRICES.childJacketFee), childEntryFee: money(PRICES.childEntryFee) };
     var PACKAGES_PAGE = CONTENT.packagesPage || { subtitle: "", trustRow: [] };
-    var GALLERY_PAGE = CONTENT.galleryPage || { subtitle: "", filters: ["All"], viewAllLabel: "" };
 
     var sharedTourCard = SECTIONS.sharedTourCard && h(
       GlassCard, { className: "overflow-hidden group" },
