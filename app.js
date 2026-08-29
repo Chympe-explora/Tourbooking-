@@ -638,20 +638,20 @@
         : "";
       var paymentMethod = payTab === "qr" ? "QR Code" : payTab === "upi" ? "UPI" : "Bank Transfer";
       var detailLines = invoiceLines().map(function (l) { return "• " + l[0] + ": " + l[1]; }).join("\n");
-      var msg = "🏔️ Booking Request — Krem Chympe Adventure\n\n" +
+      var msg = "\u{1f3d4}\ufe0f Booking Request \u2014 Krem Chympe Adventure\n\n" +
         "Hi! I'd like to make a booking with the following details:\n" +
-        "🖊️ Ref no: " + visitorCodeRef.current + "\n" +
-        "👤 Name: " + contact.name + "\n" +
-        "📱 WhatsApp: " + contact.whatsapp + "\n" +
-        "📅 Visit: " + formatDate(contact.date) + "\n" +
-        "🎒 Package: " + packageLabel + "\n" +
-        "👥 Group: " + group + "\n\n" +
-        "📋 Booking Details:\n" + detailLines + "\n\n" +
-        "💰 Grand Total: " + money(grandTotal) + "\n" +
-        "💵 Advance: " + money(advance) + "\n" +
-        "⚖️ Balance Left: " + money(balanceLeft) + "\n" +
-        "💳 Payment: " + paymentMethod + "\n\n" +
-        (contact.specialRequest ? "📝 Special Request: " + contact.specialRequest + "\n\n" : "") +
+        "\u{1f58a}\ufe0f Ref no: " + visitorCodeRef.current + "\n" +
+        "\u{1f464} Name: " + contact.name + "\n" +
+        "\u{1f4f1} WhatsApp: " + contact.whatsapp + "\n" +
+        "\u{1f4c5} Visit: " + formatDate(contact.date) + "\n" +
+        "\u{1f392} Package: " + packageLabel + "\n" +
+        "\u{1f465} Group: " + group + "\n\n" +
+        "\u{1f4cb} Booking Details:\n" + detailLines + "\n\n" +
+        "\u{1f4b0} Grand Total: " + money(grandTotal) + "\n" +
+        "\u{1f4b5} Advance: " + money(advance) + "\n" +
+        "\u2696\ufe0f Balance Left: " + money(balanceLeft) + "\n" +
+        "\u{1f4b3} Payment: " + paymentMethod + "\n\n" +
+        (contact.specialRequest ? "\u{1f4dd} Special Request: " + contact.specialRequest + "\n\n" : "") +
         "Please confirm the availability and booking. Thank you!";
       return "https://wa.me/" + CONTENT.whatsappNumber + "?text=" + encodeURIComponent(msg);
     }
