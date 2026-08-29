@@ -164,6 +164,7 @@
       // you'd rather use for the cave hero section.
       heroCave:    "Blue water cave.jpg",
       trekCard:    "Trekking.jpg",
+      privatePackageCard: "River Confluence.jpg",
       campingCard: "Camping un ex m.jpg",
       caveEntranceCard: "Cave entrance.jpg",
 
@@ -173,9 +174,12 @@
 
       // Gallery photos (id 0-9, matches the categories shown on the site)
       gallery0: "Cave entrance.jpg",
+      gallery0New: "Cave Entrance Falls.jpg",
       gallery1: "Blue watefall.jpg",
       gallery2: "Trekking.jpg",
+      gallery2New: "Trek Trail Mist.jpg",
       gallery3: "Camping un ex m.jpg",
+      gallery3New: "Camping Deck View.jpg",
       gallery4: "Rafting.jpg",
       gallery5: "Cave diving.jpg",
       gallery6: "Blue water cave.jpg",
@@ -762,17 +766,17 @@
         trekCard: window.KC_IMAGES.trekCard,
         campingCard: window.KC_IMAGES.campingCard,
         sharedPackageCard: window.KC_IMAGES.caveEntranceCard,
-        privatePackageCard: window.KC_IMAGES.trekCard
+        privatePackageCard: window.KC_IMAGES.privatePackageCard
       },
 
       // ---- Gallery: category label + photo for each tile ----
       // "span" controls the tile's size in the grid — leave as-is unless
       // you want to change the layout.
       galleryImages: [
-        { id: 0, cat: "Cave",      src: window.KC_IMAGES.gallery0, span: "col-span-8 row-span-2" },
+        { id: 0, cat: "Cave",      src: window.KC_IMAGES.gallery0New, span: "col-span-8 row-span-2" },
         { id: 1, cat: "Waterfall", src: window.KC_IMAGES.gallery1, span: "col-span-4" },
-        { id: 2, cat: "Trek",      src: window.KC_IMAGES.gallery2, span: "col-span-4" },
-        { id: 3, cat: "Camping",   src: window.KC_IMAGES.gallery3, span: "col-span-4" },
+        { id: 2, cat: "Trek",      src: window.KC_IMAGES.gallery2New, span: "col-span-4" },
+        { id: 3, cat: "Camping",   src: window.KC_IMAGES.gallery3New, span: "col-span-4" },
         { id: 4, cat: "Bamboo rafting",     src: window.KC_IMAGES.gallery4, span: "col-span-4" },
         { id: 5, cat: "Cave",      src: window.KC_IMAGES.gallery5, span: "col-span-4" },
         { id: 6, cat: "Cave", src: window.KC_IMAGES.gallery6, span: "col-span-8" },
