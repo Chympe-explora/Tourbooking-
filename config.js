@@ -781,6 +781,138 @@
         { id: 9, cat: "Camping",   src: window.KC_IMAGES.gallery9, span: "col-span-4" }
       ],
 
+      // ---- Site footer (shown at the very bottom of the home page) ----
+      footer: {
+        brandName: "TEAM CHYMPE EXPLORA",
+        locationLine: "Brishyrnot, Hno: 34, Near Football Ground, Po: Lumshonong, East Jaintia Hills, Meghalaya, 793000, India",
+        contactTitle: "Contact Us",
+        phone: "+91 8787679579",
+        email: "chympeexplora@gmail.com",
+        followTitle: "Follow Us On",
+        importantLinkTitle: "Important Link",
+        refundPolicyLabel: "Refund Policy",
+        copyright: "Copyright © Team Chympe Explora. All rights reserved."
+      },
+
+      // ---- Refund Policy page (opens only when "Refund Policy" is tapped
+      // in the footer — it is not part of the normal booking flow). Each
+      // section can mix plain paragraphs and bullet lists: give each
+      // section a "blocks" list where every block is either
+      // { type: "text", text: "..." } or
+      // { type: "list", lead: "optional line before the list", items: [...] }.
+      // Reword or add to any of it the same way as everything else here.
+      refundPolicy: {
+        title: "Refund Policy",
+        intro: "At Krem Chympe, we understand that plans can change and that outdoor adventures can sometimes be affected by weather and natural conditions.",
+        sections: [
+          {
+            number: "1",
+            heading: "Cancellation by Krem Chympe",
+            blocks: [
+              { type: "text", text: "Your safety comes first." },
+              { type: "text", text: "Krem Chympe may cancel, postpone or modify an activity if heavy rainfall, flooding, high water levels, unsafe cave conditions, dangerous trails or other natural circumstances make the experience unsafe." },
+              { type: "list", lead: "In such cases, you may be offered:", items: [
+                "Rescheduling to another available date; or",
+                "A refund for the cancelled service where rescheduling or an appropriate alternative is not possible."
+              ] },
+              { type: "text", text: "The final decision to proceed with an activity rests with the local guide/operator when safety is concerned." }
+            ]
+          },
+          {
+            number: "2",
+            heading: "Partial Activity Cancellation",
+            blocks: [
+              { type: "text", text: "If only part of your booking is affected by weather, safety or other unavoidable circumstances, unaffected activities may continue." },
+              { type: "list", lead: "For the cancelled activity, Krem Chympe may offer:", items: [
+                "An alternative activity;",
+                "Rescheduling; or",
+                "A refund for the affected portion, where applicable."
+              ] },
+              { type: "text", text: "For example, if water conditions make bamboo rafting or cave water activities unsafe, other suitable activities may still continue." }
+            ]
+          },
+          {
+            number: "3",
+            heading: "Weather & Monsoon",
+            blocks: [
+              { type: "text", text: "Krem Chympe is a natural adventure destination where weather and water conditions can change rapidly." },
+              { type: "text", text: "During heavy rainfall, water levels around and inside the cave may rise, making certain activities unsafe." },
+              { type: "text", text: "If an activity is stopped or cancelled because continuing would create a safety risk, it will be handled under the Cancellation by Krem Chympe section of this policy." }
+            ]
+          },
+          {
+            number: "4",
+            heading: "Homestay, Camping & Additional Services",
+            blocks: [
+              { type: "text", text: "Bookings may include services such as:" },
+              { type: "list", items: [
+                "Homestay",
+                "4×4 pickup and drop",
+                "Guide",
+                "Camping equipment",
+                "Overnight guide",
+                "Local food",
+                "Life jackets and other equipment"
+              ] },
+              { type: "text", text: "Refund eligibility for these services may depend on whether the service has already been provided or whether non-refundable arrangements have already been made." },
+              { type: "text", text: "Any specific conditions will be communicated during the booking process where applicable." }
+            ]
+          },
+          {
+            number: "5",
+            heading: "Refund Processing",
+            blocks: [
+              { type: "text", text: "Approved refunds will normally be returned through the original payment method." },
+              { type: "text", text: "The time required for the refund to appear in your account may depend on the bank or payment provider." }
+            ]
+          },
+          {
+            number: "6",
+            heading: "How to Request a Cancellation",
+            blocks: [
+              { type: "text", text: "To cancel your booking, contact Krem Chympe using the contact details provided on the website or your booking confirmation." },
+              { type: "list", lead: "Please provide:", items: [
+                "Booking name",
+                "Booking/reference number",
+                "Visit date",
+                "Contact number",
+                "Cancellation request"
+              ] },
+              { type: "text", text: "Your cancellation will be considered based on the time the cancellation request is received." }
+            ]
+          },
+          {
+            number: "7",
+            heading: "Important Safety Notice",
+            blocks: [
+              { type: "text", text: "Krem Chympe is an adventure destination involving trekking, cave exploration, water activities, off-roading, camping and other outdoor experiences." },
+              { type: "text", text: "Safety takes priority over completing an itinerary." },
+              { type: "text", text: "If a guide or operator determines that an activity is unsafe, the activity may be changed, postponed or cancelled even if it was originally included in your booking." },
+              { type: "text", text: "By booking with Krem Chympe, you acknowledge and accept this condition." }
+            ]
+          }
+        ],
+        promiseTitle: "Our Promise",
+        promiseText: [
+          "We would rather change an adventure than compromise your safety.",
+          "When nature changes the plan, we'll do our best to provide a suitable alternative, reschedule your experience, or provide an applicable refund."
+        ],
+        // ---- WhatsApp refund request (bottom of this page) ----
+        // A visitor MUST type in their booking reference number before the
+        // "Chat With Us" button will work — this is the only way we can
+        // require a real reference number on a website with no backend/
+        // login system. {referenceNumber} in the message is automatically
+        // replaced with whatever the visitor types into that box.
+        whatsapp: {
+          buttonLabel: "Chat With Us For A Refund",
+          referenceLabel: "Your Booking Reference Number",
+          referencePlaceholder: "e.g. 0001",
+          referenceHelperNote: "This was given to you on WhatsApp right after you booked. Refunds can only be requested with a valid reference number — if you don't have one, you haven't completed a booking with us.",
+          referenceMissingError: "Please enter your booking reference number first — this was sent to you on WhatsApp after you booked.",
+          message: "Hello Krem Chympe, I would like to request a refund / cancellation for my booking.\n\nBooking Reference Number: {referenceNumber}\nBooking name: \nVisit date: \nContact number: \nReason for refund request: "
+        }
+      },
+
       // ---- Fixed interface words (button labels, headings, form labels) ----
       // These used to be hard-coded inside the app itself. Now every one of
       // them reads from here first, so you can reword any of them the same

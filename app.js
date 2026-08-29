@@ -25,6 +25,8 @@
   var VISITOR_GUIDE = CONTENT.visitorGuide || { title: "", subtitle: "", cards: [] };
   var ACT_FAC = CONTENT.activitiesFacilities || { title: "", subtitle: "", activitiesTitle: "", activities: [], facilitiesTitle: "", facilities: [] };
   var WHY_VISIT = CONTENT.whyVisit || { title: "", subtitle: "", intro: "", journeys: [] };
+  var FOOTER = CONTENT.footer || { brandName: "", locationLine: "", contactTitle: "Contact Us", phone: "", email: "", followTitle: "Follow Us On", importantLinkTitle: "Important Link", refundPolicyLabel: "Refund Policy", copyright: "" };
+  var REFUND_POLICY = CONTENT.refundPolicy || { title: "Refund Policy", intro: "", sections: [], promiseTitle: "", promiseText: [] };
 
   var TRUST = Object.assign({
     trustedText: "Trusted by 1000+", travelersText: "Travelers",
@@ -154,6 +156,8 @@
   var CaveIcon = makeIcon([["path", { d: "M3 21h18" }], ["path", { d: "M5 21V10a7 7 0 0 1 14 0v11" }]]);
   var CalendarIcon = makeIcon([["rect", { width: 18, height: 18, x: 3, y: 4, rx: 2 }], ["path", { d: "M16 2v4" }], ["path", { d: "M8 2v4" }], ["path", { d: "M3 10h18" }]]);
   var Backpack = makeIcon([["path", { d: "M4 10a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z" }], ["path", { d: "M8 21V13a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v8" }], ["path", { d: "M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" }]]);
+  var Mail = makeIcon([["rect", { width: 20, height: 16, x: 2, y: 4, rx: 2 }], ["path", { d: "m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7" }]]);
+  var InstagramIcon = makeIcon([["rect", { width: 20, height: 20, x: 2, y: 2, rx: 5 }], ["path", { d: "M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" }], ["line", { x1: 17.5, x2: 17.51, y1: 6.5, y2: 6.5 }]]);
 
   // ---------------------------------------------------------------------
   // Shared little components
@@ -411,6 +415,21 @@
     var submitErrorState = useState(""); var submitError = submitErrorState[0], setSubmitError = submitErrorState[1];
     // Whether the visitor has tapped Submit and been handed off to WhatsApp.
     var submittedState = useState(false); var submitted = submittedState[0], setSubmitted = submittedState[1];
+
+    // ---- Refund Policy page: the reference number the visitor types in
+    // before the "Chat With Us" WhatsApp button will work ----
+    var refundRefState = useState(""); var refundRefCode = refundRefState[0], setRefundRefCode = refundRefState[1];
+    var refundRefErrorState = useState(""); var refundRefError = refundRefErrorState[0], setRefundRefError = refundRefErrorState[1];
+    function openRefundWhatsapp() {
+      var RW = REFUND_POLICY.whatsapp || {};
+      if (!refundRefCode || !refundRefCode.trim()) {
+        setRefundRefError(RW.referenceMissingError || "Please enter your booking reference number first.");
+        return;
+      }
+      setRefundRefError("");
+      var msg = fill(RW.message || "", { referenceNumber: refundRefCode.trim() });
+      window.open("https://wa.me/" + CONTENT.whatsappNumber + "?text=" + encodeURIComponent(msg), "_blank");
+    }
 
     // PRICES (declared near the top of this file) is a plain mutable object,
     // not React state — mutating its fields via Object.assign doesn't by
@@ -867,6 +886,33 @@
           );
         })),
         h("div", { className: "mt-6 flex justify-center" }, h("a", { href: CONTENT.instagram, target: "_blank", className: "px-6 py-2.5 rounded-full bg-white/10 border border-white/10 hover:bg-white/15 text-sm flex items-center gap-2" }, h(Camera, { size: 16 }), GALLERY_PAGE.viewAllLabel))
+      ),
+      h(
+        "footer", { className: "pt-6" },
+        h(
+          GlassCard, { className: "p-8 md:p-10" },
+          h("h3", { className: "text-center tracking-[0.15em] text-lg font-semibold" }, FOOTER.brandName),
+          FOOTER.locationLine && h("p", { className: "mt-3 text-center text-white/60 text-sm max-w-[480px] mx-auto" }, FOOTER.locationLine),
+          h("div", { className: "mt-8 grid sm:grid-cols-3 gap-8 text-sm" },
+            h(
+              "div", null,
+              h("div", { className: "font-semibold mb-3" }, FOOTER.contactTitle),
+              FOOTER.phone && h("a", { href: "tel:" + FOOTER.phone.replace(/\s+/g, ""), className: "flex items-center gap-2 text-white/70 hover:text-white mb-2" }, h(Phone, { size: 14 }), FOOTER.phone),
+              FOOTER.email && h("a", { href: "mailto:" + FOOTER.email, className: "flex items-center gap-2 text-white/70 hover:text-white break-all" }, h(Mail, { size: 14 }), FOOTER.email)
+            ),
+            h(
+              "div", null,
+              h("div", { className: "font-semibold mb-3" }, FOOTER.followTitle),
+              h("a", { href: CONTENT.instagram, target: "_blank", className: "inline-flex w-9 h-9 rounded-full bg-white/10 border border-white/10 items-center justify-center hover:bg-white/15" }, h(InstagramIcon, { size: 16 }))
+            ),
+            h(
+              "div", null,
+              h("div", { className: "font-semibold mb-3" }, FOOTER.importantLinkTitle),
+              h("button", { onClick: function () { setPage(7); window.scrollTo(0, 0); }, className: "text-white/70 hover:text-white underline underline-offset-2" }, FOOTER.refundPolicyLabel)
+            )
+          ),
+          h("div", { className: "mt-10 pt-6 border-t border-white/10 text-center text-[12px] text-white/40" }, FOOTER.copyright)
+        )
       )
     );
 
@@ -1414,12 +1460,75 @@
       )
     );
 
+    // ---- Page 7: Refund Policy (only reachable via the footer link) ----
+    var page7 = page === 7 && h(
+      "main", { className: "max-w-[760px] mx-auto px-4 md:px-6 pb-32" },
+      h(
+        GlassCard, { className: "p-6 md:p-10" },
+        h("h1", { className: "text-2xl md:text-3xl font-bold" }, REFUND_POLICY.title),
+        REFUND_POLICY.intro && h("p", { className: "mt-4 text-white/70 text-sm leading-relaxed" }, REFUND_POLICY.intro),
+        h(
+          "div", { className: "mt-8 space-y-8" },
+          (REFUND_POLICY.sections || []).map(function (sec) {
+            return h(
+              "div", { key: sec.number, className: "border-t border-white/10 pt-6" },
+              h("h2", { className: "text-lg font-semibold" }, sec.number, ". ", sec.heading),
+              h(
+                "div", { className: "mt-3 space-y-3" },
+                (sec.blocks || []).map(function (block, i) {
+                  if (block.type === "list") {
+                    return h(
+                      "div", { key: i },
+                      block.lead && h("p", { className: "text-white/70 text-[13px] leading-relaxed mb-2" }, block.lead),
+                      h(
+                        "ul", { className: "space-y-1.5 pl-1" },
+                        (block.items || []).map(function (item, j) {
+                          return h("li", { key: j, className: "flex gap-2 text-[13px] text-white/70 leading-relaxed" }, h("span", { className: "text-emerald-400 font-bold" }, "•"), item);
+                        })
+                      )
+                    );
+                  }
+                  return h("p", { key: i, className: "text-white/70 text-[13px] leading-relaxed" }, block.text);
+                })
+              )
+            );
+          })
+        ),
+        (REFUND_POLICY.promiseTitle || (REFUND_POLICY.promiseText && REFUND_POLICY.promiseText.length > 0)) && h(
+          "div", { className: "mt-10 p-6 rounded-[18px] bg-emerald-500/10 border border-emerald-400/20" },
+          REFUND_POLICY.promiseTitle && h("h3", { className: "font-semibold text-emerald-300" }, REFUND_POLICY.promiseTitle),
+          toLines(REFUND_POLICY.promiseText).map(function (line, i) {
+            return h("p", { key: i, className: "mt-2 text-white/80 text-[13px] leading-relaxed" }, line);
+          })
+        ),
+        REFUND_POLICY.whatsapp && h(
+          "div", { className: "mt-10 p-6 rounded-[18px] bg-white/5 border border-white/10" },
+          h("label", { className: "block text-sm font-medium mb-2" }, REFUND_POLICY.whatsapp.referenceLabel || "Booking Reference Number"),
+          h("input", {
+            type: "text",
+            value: refundRefCode,
+            onChange: function (e) { setRefundRefCode(e.target.value); if (refundRefError) setRefundRefError(""); },
+            placeholder: REFUND_POLICY.whatsapp.referencePlaceholder || "e.g. 0001",
+            className: "w-full px-4 py-3 rounded-xl bg-white/10 border border-white/15 text-sm placeholder-white/30 focus:outline-none focus:border-emerald-400/50"
+          }),
+          REFUND_POLICY.whatsapp.referenceHelperNote && h("p", { className: "mt-2 text-[12px] text-white/50 leading-relaxed" }, REFUND_POLICY.whatsapp.referenceHelperNote),
+          refundRefError && h("p", { className: "mt-2 text-[12px] text-amber-300" }, refundRefError),
+          h(
+            "button", { onClick: openRefundWhatsapp, className: "kc-whatsapp-btn mt-4" },
+            h(Phone, { size: 18 }),
+            REFUND_POLICY.whatsapp.buttonLabel || "Chat With Us"
+          )
+        ),
+        h("button", { onClick: function () { setPage(1); window.scrollTo(0, 0); }, className: "mt-4 w-full bg-white/5 border border-white/10 py-3 rounded-full font-semibold" }, t("backToHome", "Back to Home"))
+      )
+    );
+
     // ---- Bottom nav -------------------------------------------------
     // Pages 2 and 3 each have their own dedicated call-to-action button
     // (package cards, and the booking form's "Next" submit button), so the
     // generic bottom-nav "Next" only needs to handle page 1.
     var totalPages = 6;
-    var bottomNav = h(
+    var bottomNav = page !== 7 && h(
       "div", { className: "fixed bottom-0 inset-x-0 z-30 p-3 md:p-4 pointer-events-none" },
       h(
         GlassCard, { className: "max-w-[1280px] mx-auto px-4 py-3 flex justify-between items-center pointer-events-auto" },
@@ -1447,7 +1556,7 @@
         h("div", { className: "absolute inset-0 bg-black/40 backdrop-blur-[1px]" }),
         h("div", { className: "absolute inset-0 bg-gradient-to-b from-black/30 via-transparent to-black/60" })
       ),
-      header, page1, page2, page3, page4, page5, page6, bottomNav,
+      header, page1, page2, page3, page4, page5, page6, page7, bottomNav,
       h("style", null, "\n        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Poppins:wght@500;600;700&display=swap');\n        *{font-family:Inter, Poppins, sans-serif}\n        ::-webkit-scrollbar{width:6px;height:6px}\n        ::-webkit-scrollbar-thumb{background:rgba(255,255,255,0.15);border-radius:99px}\n      ")
     );
   }
