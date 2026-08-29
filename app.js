@@ -387,7 +387,7 @@
     var galleryState = useState("All"); var galleryFilter = galleryState[0], setGalleryFilter = galleryState[1];
     var GALLERY_PAGE = CONTENT.galleryPage || { subtitle: "", filters: ["All"], viewAllLabel: "" };
 
-    var contactState = useState({ name: "", whatsapp: "", date: "" });
+    var contactState = useState({ name: "", whatsapp: "", date: "", homestay: "no", specialRequest: "" });
     var contact = contactState[0], setContact = contactState[1];
 
     var sharedTourState = useState({ adults: 2, children: 0, childAges: [], lunchQty: {} });
@@ -611,13 +611,35 @@
       return [];
     }
 
+    function formatGroup(adults, childAges) {
+      var kids = (childAges || []).filter(function (a) { return a !== "" && a !== null && a !== undefined; });
+      var adultStr = adults + " Adult" + (adults === 1 ? "" : "s");
+      if (kids.length === 0) return adultStr;
+      var ages = kids.join(", ");
+      var childStr = kids.length + " Child" + (kids.length === 1 ? "" : "ren") + " (" + ages + " " + (kids.length === 1 ? "year" : "years") + ")";
+      return adultStr + " + " + childStr;
+    }
+
     function whatsappLink() {
-      var lines = invoiceLines().map(function (l) { return l[0] + ": " + l[1]; }).join("\n");
-      var msg = "Hello Krem Chympe Adventure!\nRef: #" + visitorCodeRef.current +
-        "\nName: " + contact.name + "\nWhatsApp: " + contact.whatsapp +
-        "\nDate: " + contact.date + "\nPackage: " + packageLabel + "\n" + lines +
-        "\nGrand Total: " + money(grandTotal) + "\nIntended Advance: " + money(advance) + "\nBalance Left: " + money(balanceLeft) +
-        "\nPreferred Payment Method: " + (payTab === "qr" ? "QR Code" : payTab === "upi" ? "UPI" : "Bank Transfer");
+      var group = pkg === "sharedTour" ? formatGroup(sharedTourForm.adults, sharedTourForm.childAges)
+        : pkg === "camping" ? formatGroup(campingForm.adults, campingForm.childAges)
+        : pkg === "privatePackage" ? (privateForm.people + " Guest" + (privateForm.people === 1 ? "" : "s"))
+        : "";
+      var campingYesNo = pkg === "camping" ? "Yes" : (pkg === "privatePackage" && privateForm.camping === "yes") ? "Yes" : "No";
+      var paymentMethod = payTab === "qr" ? "QR Code" : payTab === "upi" ? "UPI" : "Bank Transfer";
+      var msg = "🏔️ Booking Request — Krem Chympe Adventure\n\n" +
+        "Hi! I'd like to make a booking with the following details:\n" +
+        "🖊️Ref no: " + visitorCodeRef.current + "\n" +
+        "👤 Name: " + contact.name + "\n" +
+        "📅 Visit: " + contact.date + "\n" +
+        "👥 Group: " + group + "\n\n" +
+        "🎒 Package: " + packageLabel + "\n" +
+        "🏡 Homestay: " + (contact.homestay === "yes" ? "Yes" : "No") + "\n" +
+        "⛺ Camping: " + campingYesNo + "\n\n" +
+        "💰 Total: " + money(grandTotal) + "\n" +
+        "💳 Payment: " + paymentMethod + "\n\n" +
+        (contact.specialRequest ? "📝 Special Request: " + contact.specialRequest + "\n\n" : "") +
+        "Please confirm the availability and booking. Thank you!";
       return "https://wa.me/" + CONTENT.whatsappNumber + "?text=" + encodeURIComponent(msg);
     }
 
@@ -1022,7 +1044,9 @@
       "div", { className: "grid md:grid-cols-2 gap-5" },
       h("label", { className: "space-y-2 block" }, h("span", { className: "text-xs text-white/60" }, t("fullName", "Full Name")), h("input", { value: contact.name, onChange: function (e) { setContact(Object.assign({}, contact, { name: e.target.value })); }, placeholder: "Your name", className: "w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 outline-none focus:border-emerald-400/50 text-sm" })),
       h("label", { className: "space-y-2 block" }, h("span", { className: "text-xs text-white/60" }, t("whatsappNumberLabel", "WhatsApp Number")), h("input", { value: contact.whatsapp, onChange: function (e) { setContact(Object.assign({}, contact, { whatsapp: e.target.value })); }, placeholder: "+91 98765 43210", className: "w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 outline-none focus:border-emerald-400/50 text-sm" })),
-      h("label", { className: "space-y-2 block md:col-span-2" }, h("span", { className: "text-xs text-white/60" }, t("dateLabel", "Date")), h("input", { type: "date", value: contact.date, onChange: function (e) { setContact(Object.assign({}, contact, { date: e.target.value })); }, className: "w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 outline-none text-sm [color-scheme:dark]" }))
+      h("label", { className: "space-y-2 block" }, h("span", { className: "text-xs text-white/60" }, t("dateLabel", "Date")), h("input", { type: "date", value: contact.date, onChange: function (e) { setContact(Object.assign({}, contact, { date: e.target.value })); }, className: "w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 outline-none text-sm [color-scheme:dark]" })),
+      h("label", { className: "space-y-2 block" }, h("span", { className: "text-xs text-white/60" }, "Homestay"), h("select", { value: contact.homestay, onChange: function (e) { setContact(Object.assign({}, contact, { homestay: e.target.value })); }, className: "w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 outline-none text-sm [color-scheme:dark]" }, h("option", { value: "no" }, "No"), h("option", { value: "yes" }, "Yes"))),
+      h("label", { className: "space-y-2 block md:col-span-2" }, h("span", { className: "text-xs text-white/60" }, "Special Request (optional)"), h("textarea", { value: contact.specialRequest, onChange: function (e) { setContact(Object.assign({}, contact, { specialRequest: e.target.value })); }, rows: 3, placeholder: "Anything else we should know?", className: "w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 outline-none focus:border-emerald-400/50 text-sm resize-none" }))
     );
 
     var STB = CONTENT.sharedTourBooking || {};
