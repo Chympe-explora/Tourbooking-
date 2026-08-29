@@ -247,8 +247,9 @@
       // needs to be touched. ----
       sections: {
         trustBar: true,       // the "Trusted by 1000+ Travelers / Google Rating..." bar under the hero
+        visitorGuide: true,   // the new "Know Before You Go" first-time-visitor info block
         ourStory: true,       // the "Our Story" timeline block
-        statsRow: true,       // the 12KM / 2 Hour / 100+ / 4.9 stat tiles
+        statsRow: true,       // the 10.5KM / 3-4 Hrs / 50+ / 4.9 stat tiles
         meetGuide: true,      // the "Meet Your Guide" card
         sharedTourCard: true, // the "Shared Tour" package card
         campingCard: true,    // the "Camping Experience" package card
@@ -342,6 +343,80 @@
           "Pristine forest trails with diverse biodiversity",
           "Safe & guided exploration for all fitness levels",
           "Zero-plastic, eco-friendly adventure experience"
+        ]
+      },
+
+      // ---- "Know Before You Go" — first-time visitor guide (home page) ----
+      // This is the plain-English information block for people who have
+      // never been to Krem Chympe before. Each card in "cards" needs an
+      // "icon" (one of: mappin, calendar, users, backpack, shield, leaf),
+      // a "title", and a list of short "items" (bullet points). Add,
+      // remove, or reword any card or item the same way as everything
+      // else in this file — just keep the commas.
+      visitorGuide: {
+        title: "Know Before You Go",
+        subtitle: "Simple, honest information every first-time visitor should read before booking",
+        cards: [
+          {
+            icon: "mappin",
+            title: "How To Reach",
+            items: [
+              "Nearest big city: Shillong, about 120 km away.",
+              "Starting point: Khaddum Village, East Jaintia Hills, Meghalaya.",
+              "From Khaddum, it's roughly a 3 km forest trek (about 3–4 hours one way) to the cave entrance at Sielkan.",
+              "There are no signboards on the trail — this is an offbeat place, so a local guide is required, not optional."
+            ]
+          },
+          {
+            icon: "calendar",
+            title: "Best Time To Visit",
+            items: [
+              "Best months: October to April.",
+              "In this season the river is low and calm, so swimming, rafting and canoeing are much safer.",
+              "The trail is dry and less slippery, which makes trekking easier and safer.",
+              "Please avoid the monsoon (June to September) — heavy rain floods the river fast, water visibility drops, and cave exploration becomes dangerous."
+            ]
+          },
+          {
+            icon: "users",
+            title: "Who Can Come",
+            items: [
+              "You should have moderate to good fitness — this is a real forest trek, not a short walk.",
+              "You should be comfortable swimming, since part of the trip involves rafting and swimming through cold cave water.",
+              "Recommended age: 16 years and above.",
+              "Not recommended if you have claustrophobia, a heart condition, or breathing problems — please check with a doctor if you're unsure, and tell your guide beforehand."
+            ]
+          },
+          {
+            icon: "backpack",
+            title: "What To Pack",
+            items: [
+              "Wear quick-dry clothes and water shoes or sandals with a good grip; a wetsuit is a good idea in the cave water.",
+              "Bring a dry change of clothes, a towel, and a waterproof bag or pouch for your phone and wallet.",
+              "Safety gear such as a helmet, life jacket, and waterproof torch is provided — please ask your guide if you don't see it.",
+              "Also pack sunscreen, insect repellent, a small first-aid kit, drinking water, and some snacks for the trek."
+            ]
+          },
+          {
+            icon: "shield",
+            title: "Safety & Timing",
+            items: [
+              "Always follow your local guide's instructions — they know the trail, the cave, and the river conditions best.",
+              "Start early, around 7–8 AM, so you have enough daylight for the full trip.",
+              "Plan for a full day out: 3–4 hours trekking in, 3–4 hours exploring the cave, then the trek back.",
+              "Weather in the hills can change quickly, so carry a rain jacket even in the dry season."
+            ]
+          },
+          {
+            icon: "leaf",
+            title: "Please Respect Nature",
+            items: [
+              "Carry back everything you bring in — there are no bins on the trail, so please don't litter.",
+              "Krem Chympe is home to the world's largest blind cavefish and rare bat colonies found almost nowhere else — please don't touch or disturb any wildlife.",
+              "Stay on the path your guide shows you, to protect the forest and the delicate cave floor.",
+              "Visitor numbers are deliberately kept low to protect this fragile ecosystem — thank you for helping us keep it that way."
+            ]
+          }
         ]
       },
 
@@ -591,11 +666,11 @@
 
       // ---- Homepage hero text ----
       hero: {
-        badge: "MEGHALAYA-CHYMPE FALL-CAVE ADVENTURE",
+        badge: "MEGHALAYA — CHYMPE FALL & CAVE ADVENTURE",
         title: "Discover Meghalaya's Hidden Paradise",
-        sub: "Embark on an unforgettable journey through Krem Chympe, one of India's longest cave systems with 20 km explored length wise it nestled in the heart of Meghalaya's mystical forests.",
+        sub: "Krem Chympe is India's 5th-longest cave system, with about 10.5 km of mapped passages (explorers have surveyed close to 19 km so far). A short forest trek from Khaddum Village leads you past the beautiful Chympe (Pieltleng) Waterfall to a hidden cave, an underground lake, golden mineral formations, and rare wildlife found almost nowhere else on Earth — all still untouched by crowds.",
         visitorsLabel: "Visitors",
-        duration: "2 Hours Trek",
+        duration: "Full-Day Trip (3–4 Hrs Trek Each Way)",
         priceLabel: "Starts ₹1500 Per Guide"
       },
 

@@ -16,11 +16,13 @@
 
   // Section on/off switches (edit window.KC_CONTENT.sections in config.js)
   var SECTIONS = Object.assign({
-    trustBar: true, ourStory: true, statsRow: true, meetGuide: true,
+    trustBar: true, visitorGuide: true, ourStory: true, statsRow: true, meetGuide: true,
     destinationDetails: true,
     sharedTourCard: true, campingCard: true, privatePackageCard: true,
     packagesTrustRow: true, gallery: true
   }, CONTENT.sections || {});
+
+  var VISITOR_GUIDE = CONTENT.visitorGuide || { title: "", subtitle: "", cards: [] };
 
   var TRUST = Object.assign({
     trustedText: "Trusted by 1000+", travelersText: "Travelers",
@@ -148,6 +150,8 @@
   // "Cave" icon — a simple tunnel/arch shape, used for cave-themed highlight
   // cards (icon: "cave" in config.js)
   var CaveIcon = makeIcon([["path", { d: "M3 21h18" }], ["path", { d: "M5 21V10a7 7 0 0 1 14 0v11" }]]);
+  var CalendarIcon = makeIcon([["rect", { width: 18, height: 18, x: 3, y: 4, rx: 2 }], ["path", { d: "M16 2v4" }], ["path", { d: "M8 2v4" }], ["path", { d: "M3 10h18" }]]);
+  var Backpack = makeIcon([["path", { d: "M4 10a4 4 0 0 1 4-4h8a4 4 0 0 1 4 4v8a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2z" }], ["path", { d: "M8 21V13a1 1 0 0 1 1-1h6a1 1 0 0 1 1 1v8" }], ["path", { d: "M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" }]]);
 
   // ---------------------------------------------------------------------
   // Shared little components
@@ -686,7 +690,33 @@
           h("span", { className: "flex items-center gap-2" }, h(Award, { size: 14 }), " " + TRUST.ecoTourismText)
         )
       ),
-      (SECTIONS.ourStory || SECTIONS.statsRow || SECTIONS.meetGuide) && h(
+      SECTIONS.visitorGuide && VISITOR_GUIDE.cards && VISITOR_GUIDE.cards.length > 0 && h(
+        GlassCard, { className: "p-6 md:p-10" },
+        h("h2", { className: "text-2xl md:text-3xl font-semibold text-center" }, VISITOR_GUIDE.title),
+        VISITOR_GUIDE.subtitle && h("p", { className: "mt-2 text-white/60 text-sm text-center max-w-[560px] mx-auto" }, VISITOR_GUIDE.subtitle),
+        h(
+          "div", { className: "mt-8 grid sm:grid-cols-2 lg:grid-cols-3 gap-5" },
+          VISITOR_GUIDE.cards.map(function (card) {
+            var icons = { mappin: MapPin, calendar: CalendarIcon, users: Users, backpack: Backpack, shield: Shield, leaf: Leaf };
+            var Icon = icons[card.icon] || Mountain;
+            return h(
+              "div", { key: card.title, className: "rounded-[18px] bg-white/5 border border-white/10 p-5" },
+              h(
+                "div", { className: "flex items-center gap-3 mb-3" },
+                h("div", { className: "w-9 h-9 rounded-lg bg-emerald-500/20 flex items-center justify-center flex-shrink-0" }, h(Icon, { size: 18, className: "text-emerald-400" })),
+                h("h3", { className: "font-semibold text-[15px]" }, card.title)
+              ),
+              h(
+                "ul", { className: "space-y-2" },
+                (card.items || []).map(function (item, i) {
+                  return h("li", { key: i, className: "flex gap-2 text-[13px] text-white/70 leading-relaxed" }, h("span", { className: "text-emerald-400 font-bold" }, "•"), item);
+                })
+              )
+            );
+          })
+        )
+      ),
+      (SECTIONS.ourStory || SECTIONS.statsRow) && h(
         "div", { className: "grid md:grid-cols-[1.1fr_0.9fr] gap-6" },
         SECTIONS.ourStory && h(
           GlassCard, { className: "p-8 md:p-10" },
@@ -704,29 +734,16 @@
             })
           )
         ),
-        (SECTIONS.statsRow || SECTIONS.meetGuide) && h(
-          "div", { className: "space-y-6" },
-          SECTIONS.statsRow && h(
-            GlassCard, { className: "p-6 grid grid-cols-2 gap-4" },
-            [
-              { k: "12KM", v: t("statForestTrailLabel", "Forest Trail") },
-              { k: "2 Hour", v: t("statAverageTrekLabel", "Average Trek") },
-              { k: "100+", v: t("statSpeciesLabel", "Species") },
-              { k: "4.9", v: t("statGoogleRatingLabel", "Google Rating") }
-            ].map(function (p) {
-              return h("div", { key: p.v, className: "rounded-[16px] bg-white/5 border border-white/10 p-5" }, h("div", { className: "text-2xl font-bold" }, p.k), h("div", { className: "text-[12px] text-white/60 mt-1" }, p.v));
-            })
-          ),
-          SECTIONS.meetGuide && h(
-            GlassCard, { className: "p-6 flex gap-4 items-center" },
-            h("img", { src: CONTENT.guide.image, className: "w-16 h-16 rounded-full object-cover border border-white/20" }),
-            h(
-              "div", null,
-              h("div", { className: "font-semibold" }, t("meetYourGuide", "Meet Your Guide")),
-              h("div", { className: "text-[13px] text-white/80" }, CONTENT.guide.name, " • ", CONTENT.guide.role),
-              h("div", { className: "text-[12px] text-white/60 mt-1 max-w-[280px]" }, CONTENT.guide.bio)
-            )
-          )
+        SECTIONS.statsRow && h(
+          GlassCard, { className: "p-6 grid grid-cols-2 gap-4 content-start" },
+          [
+            { k: "10.5KM", v: t("statForestTrailLabel", "Mapped Cave") },
+            { k: "3-4 Hrs", v: t("statAverageTrekLabel", "Trek Each Way") },
+            { k: "50+", v: t("statSpeciesLabel", "Limestone Dams") },
+            { k: "4.9", v: t("statGoogleRatingLabel", "Visitor Rating") }
+          ].map(function (p) {
+            return h("div", { key: p.v, className: "rounded-[16px] bg-white/5 border border-white/10 p-5" }, h("div", { className: "text-2xl font-bold" }, p.k), h("div", { className: "text-[12px] text-white/60 mt-1" }, p.v));
+          })
         )
       ),
       SECTIONS.destinationDetails && h(
@@ -766,6 +783,16 @@
               );
             })
           )
+        )
+      ),
+      SECTIONS.meetGuide && h(
+        GlassCard, { className: "p-6 md:p-8 flex flex-col sm:flex-row gap-5 items-center" },
+        h("img", { src: CONTENT.guide.image, className: "w-20 h-20 rounded-full object-cover border border-white/20 flex-shrink-0" }),
+        h(
+          "div", { className: "text-center sm:text-left" },
+          h("div", { className: "font-semibold text-lg" }, t("meetYourGuide", "Meet Your Guide")),
+          h("div", { className: "text-[13px] text-white/80 mt-0.5" }, CONTENT.guide.name, " • ", CONTENT.guide.role),
+          h("div", { className: "text-[13px] text-white/60 mt-1.5 max-w-[560px]" }, CONTENT.guide.bio)
         )
       ),
       SECTIONS.gallery && h(
