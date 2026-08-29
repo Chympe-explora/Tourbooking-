@@ -16,13 +16,15 @@
 
   // Section on/off switches (edit window.KC_CONTENT.sections in config.js)
   var SECTIONS = Object.assign({
-    trustBar: true, visitorGuide: true, ourStory: true, statsRow: true, meetGuide: true,
+    trustBar: true, visitorGuide: true, activitiesFacilities: true, ourStory: true, statsRow: true, meetGuide: true,
     destinationDetails: true,
     sharedTourCard: true, campingCard: true, privatePackageCard: true,
     packagesTrustRow: true, gallery: true
   }, CONTENT.sections || {});
 
   var VISITOR_GUIDE = CONTENT.visitorGuide || { title: "", subtitle: "", cards: [] };
+  var ACT_FAC = CONTENT.activitiesFacilities || { title: "", subtitle: "", activitiesTitle: "", activities: [], facilitiesTitle: "", facilities: [] };
+  var WHY_VISIT = CONTENT.whyVisit || { title: "", subtitle: "", intro: "", journeys: [] };
 
   var TRUST = Object.assign({
     trustedText: "Trusted by 1000+", travelersText: "Travelers",
@@ -771,17 +773,69 @@
               h(ImageSlider, { images: highlight.images || [] })
             );
           })
-        ),
+        )
+      ),
+      WHY_VISIT.journeys && WHY_VISIT.journeys.length > 0 && h(
+        GlassCard, { className: "p-6 md:p-10" },
+        h("h2", { className: "text-2xl md:text-3xl font-semibold text-center tracking-tight" }, WHY_VISIT.title),
+        WHY_VISIT.subtitle && h("p", { className: "mt-2 text-white/80 text-base font-medium text-center" }, WHY_VISIT.subtitle),
+        WHY_VISIT.intro && h("p", { className: "mt-4 text-white/60 text-sm leading-relaxed text-center max-w-[720px] mx-auto" }, WHY_VISIT.intro),
         h(
-          GlassCard, { className: "p-6 md:p-8" },
-          h("h3", { className: "text-lg font-semibold mb-4" }, "Why Visit Krem Chympe?"),
-          h("ul", { className: "space-y-2" },
-            (CONTENT.destinationDetails.keyFeatures || []).map(function (feature) {
-              return h("li", { key: feature, className: "flex gap-3 text-[13px]" },
-                h("span", { className: "text-emerald-400 font-bold" }, "✓"),
-                feature
-              );
-            })
+          "div", { className: "mt-8 grid md:grid-cols-2 gap-5" },
+          WHY_VISIT.journeys.map(function (j) {
+            return h(
+              "div", { key: j.number, className: "rounded-[18px] bg-white/5 border border-white/10 p-6" },
+              h(
+                "div", { className: "flex items-center gap-3" },
+                h("span", { className: "text-2xl" }, j.emoji),
+                h("span", { className: "text-[11px] tracking-widest text-white/40 font-semibold" }, j.number, " —"),
+                h("h3", { className: "font-semibold text-[15px]" }, j.title)
+              ),
+              j.tagline && h("div", { className: "mt-3 text-white/80 text-[13px] font-medium italic" }, j.tagline),
+              j.description && h("p", { className: "mt-2 text-[13px] text-white/60 leading-relaxed" }, j.description),
+              j.experience && j.experience.length > 0 && h(
+                "div", { className: "mt-4 flex flex-wrap gap-2" },
+                j.experience.map(function (tag) {
+                  return h("span", { key: tag, className: "px-3 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/20 text-[11px] text-emerald-300" }, tag);
+                })
+              )
+            );
+          })
+        )
+      ),
+      SECTIONS.activitiesFacilities && h(
+        GlassCard, { className: "p-6 md:p-10" },
+        h("h2", { className: "text-2xl md:text-3xl font-semibold text-center" }, ACT_FAC.title),
+        ACT_FAC.subtitle && h("p", { className: "mt-2 text-white/60 text-sm text-center max-w-[560px] mx-auto" }, ACT_FAC.subtitle),
+        h(
+          "div", { className: "mt-8 grid md:grid-cols-2 gap-6" },
+          h(
+            "div", { className: "rounded-[18px] bg-white/5 border border-white/10 p-6" },
+            h(
+              "div", { className: "flex items-center gap-3 mb-4" },
+              h("div", { className: "w-9 h-9 rounded-lg bg-emerald-500/20 flex items-center justify-center flex-shrink-0" }, h(Mountain, { size: 18, className: "text-emerald-400" })),
+              h("h3", { className: "font-semibold text-[15px]" }, ACT_FAC.activitiesTitle)
+            ),
+            h(
+              "ul", { className: "grid sm:grid-cols-2 gap-x-4 gap-y-2" },
+              (ACT_FAC.activities || []).map(function (item) {
+                return h("li", { key: item, className: "flex gap-2 text-[13px] text-white/70" }, h(Check, { size: 14, className: "text-emerald-400 mt-0.5 flex-shrink-0" }), item);
+              })
+            )
+          ),
+          h(
+            "div", { className: "rounded-[18px] bg-white/5 border border-white/10 p-6" },
+            h(
+              "div", { className: "flex items-center gap-3 mb-4" },
+              h("div", { className: "w-9 h-9 rounded-lg bg-emerald-500/20 flex items-center justify-center flex-shrink-0" }, h(Shield, { size: 18, className: "text-emerald-400" })),
+              h("h3", { className: "font-semibold text-[15px]" }, ACT_FAC.facilitiesTitle)
+            ),
+            h(
+              "ul", { className: "grid sm:grid-cols-2 gap-x-4 gap-y-2" },
+              (ACT_FAC.facilities || []).map(function (item) {
+                return h("li", { key: item, className: "flex gap-2 text-[13px] text-white/70" }, h(Check, { size: 14, className: "text-emerald-400 mt-0.5 flex-shrink-0" }), item);
+              })
+            )
           )
         )
       ),

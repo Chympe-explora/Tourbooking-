@@ -247,7 +247,8 @@
       // needs to be touched. ----
       sections: {
         trustBar: true,       // the "Trusted by 1000+ Travelers / Google Rating..." bar under the hero
-        visitorGuide: true,   // the new "Know Before You Go" first-time-visitor info block
+        visitorGuide: true,   // the "Know Before You Go" first-time-visitor info block
+        activitiesFacilities: true, // the "Activities & Facilities" block
         ourStory: true,       // the "Our Story" timeline block
         statsRow: true,       // the 10.5KM / 3-4 Hrs / 50+ / 4.9 stat tiles
         meetGuide: true,      // the "Meet Your Guide" card
@@ -336,13 +337,81 @@
             description: "The cave's unique environment supports organisms that have evolved to survive in total darkness and isolation, making it a living laboratory of evolutionary adaptation.",
             images: ["Trekking.jpg", "Camping.jpg"]
           }
+        ]
+      },
+
+      // ---- "Why Visit Krem Chympe?" — the 4 big adventure-journey cards
+      // (home page, right after "About Krem Chympe"). Each journey needs
+      // an "emoji", "number" (01–04), "title", "tagline" (bold one-liner),
+      // "description", and "experience" (short list of activity tags
+      // shown at the bottom of the card). Reword any of it the same way
+      // as everything else in this file.
+      whyVisit: {
+        title: "WHY VISIT KREM CHYMPE?",
+        subtitle: "Not Just a Place to Visit. A Journey to Experience.",
+        intro: "Deep in the wild landscapes of Meghalaya, Krem Chympe brings together forests, waterfalls, underground rivers, limestone caves and village hospitality. From off-road trails and trekking to bamboo rafting through the cave, natural pools, cliff jumping and overnight camping — every part of the journey offers something different.",
+        journeys: [
+          {
+            emoji: "🛻",
+            number: "01",
+            title: "The Journey Begins Off-Road",
+            tagline: "Leave the ordinary road behind.",
+            description: "Climb aboard a 4×4 and head into the rugged landscape surrounding Krem Chympe. The road itself becomes part of the adventure, taking you deeper into the wilderness before the trek begins.",
+            experience: ["4×4 Off-Roading", "Pickup & Drop Available"]
+          },
+          {
+            emoji: "🌿",
+            number: "02",
+            title: "Into the Wild",
+            tagline: "Walk where nature takes over.",
+            description: "Follow forest trails, cross bridges, navigate the terrain and make your way toward a world hidden beneath the limestone. Trekking isn't simply the way to Krem Chympe — it's part of the experience.",
+            experience: ["Trekking", "Bridge Crossing", "Waterfall"]
+          },
+          {
+            emoji: "🕳️",
+            number: "03",
+            title: "Enter the World Beneath",
+            tagline: "Where the river becomes your road.",
+            description: "Step inside Krem Chympe and leave the familiar world behind. Explore enormous limestone formations, paddle through underground passages on a bamboo raft, and discover natural pools hidden inside the cave.",
+            experience: ["Cave Exploration", "Bamboo Rafting", "Underground Natural Pool"]
+          },
+          {
+            emoji: "🌊",
+            number: "04",
+            title: "For the Thrill Seekers",
+            tagline: "Feel the rush.",
+            description: "For those looking for something beyond sightseeing, Krem Chympe offers experiences that bring you closer to the raw side of nature — from cave cliff jumping to exploring hidden waters and spending the night beneath the wilderness.",
+            experience: ["Cave Cliff Jumping", "Natural Pool", "Overnight Camping"]
+          }
+        ]
+      },
+
+      // ---- "Activities & Facilities" — what visitors can do and what's
+      // provided (home page). Each item just needs a short "text". Add,
+      // remove, or reword any line the same way as everything else here.
+      activitiesFacilities: {
+        title: "Activities & Facilities",
+        subtitle: "Everything you can do here, and everything we provide",
+        activitiesTitle: "Adventure Activities",
+        activities: [
+          "4×4 Off-Roading",
+          "Cave Exploration (700m+)",
+          "Cave Cliff Jumping",
+          "Bamboo Rafting",
+          "Underground Natural Pool Swimming",
+          "Chympe Waterfall Visit",
+          "Forest Trekking",
+          "Bridge Crossing",
+          "Overnight Camping"
         ],
-        keyFeatures: [
-          "Resurgent cave with underground river system",
-          "Crystal-clear underground lake accessible to visitors",
-          "Pristine forest trails with diverse biodiversity",
-          "Safe & guided exploration for all fitness levels",
-          "Zero-plastic, eco-friendly adventure experience"
+        facilitiesTitle: "Facilities Provided",
+        facilities: [
+          "4×4 Vehicle Pickup & Drop",
+          "Homestay (for overnight stays)",
+          "Life Jacket for Every Visitor",
+          "Certified Local Guide",
+          "Basic First Aid Service",
+          "Local, Freshly Cooked Food"
         ]
       },
 
