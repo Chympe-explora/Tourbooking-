@@ -280,6 +280,41 @@
         { year: "Today", title: "Conservation", desc: "Protecting 12km trail, 100+ species, with zero-plastic and leave-no-trace policy." }
       ],
 
+      // ---- Destination Details (featured on home page) ----
+      destinationDetails: {
+        title: "About Krem Chympe",
+        subtitle: "India's Fifth-Longest Cave System",
+        highlights: [
+          {
+            icon: "mountain",
+            label: "India's 5th Longest Cave",
+            description: "10.5+ kilometers of mapped passages with stunning limestone formations and underground lakes"
+          },
+          {
+            icon: "water",
+            label: "Golden Orchid Chamber",
+            description: "A breathtaking underground chamber featuring magnificent limestone formations and cascading waters"
+          },
+          {
+            icon: "users",
+            label: "50+ Natural Limestone Dams",
+            description: "Unique geological formations (gours) creating natural pools throughout the cave system"
+          },
+          {
+            icon: "leaf",
+            label: "World's Largest Blind Cavefish",
+            description: "Home to rare cave-adapted species including the fascinating Neolissochilus pnar"
+          }
+        ],
+        keyFeatures: [
+          "Resurgent cave with underground river system",
+          "Crystal-clear underground lake accessible to visitors",
+          "Pristine forest trails with diverse biodiversity",
+          "Safe & guided exploration for all fitness levels",
+          "Zero-plastic, eco-friendly adventure experience"
+        ]
+      },
+
       // ---- Packages page header + trust strip ----
       packagesPage: {
         subtitle: "Choose your perfect adventure • 3 curated experiences",

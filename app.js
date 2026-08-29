@@ -17,6 +17,7 @@
   // Section on/off switches (edit window.KC_CONTENT.sections in config.js)
   var SECTIONS = Object.assign({
     trustBar: true, ourStory: true, statsRow: true, meetGuide: true,
+    destinationDetails: true,
     sharedTourCard: true, campingCard: true, privatePackageCard: true,
     packagesTrustRow: true, gallery: true
   }, CONTENT.sections || {});
@@ -668,6 +669,63 @@
             )
           )
         )
+      ),
+      SECTIONS.destinationDetails && h(
+        "div", { className: "space-y-6" },
+        h(
+          GlassCard, { className: "p-8 md:p-10 text-center" },
+          h("h2", { className: "text-3xl font-semibold" }, CONTENT.destinationDetails.title),
+          h("p", { className: "mt-2 text-white/60 text-sm" }, CONTENT.destinationDetails.subtitle)
+        ),
+        h("div", { className: "grid md:grid-cols-2 gap-6" },
+          (CONTENT.destinationDetails.highlights || []).map(function (highlight) {
+            var icons = { mountain: Mountain, water: Compass, users: Users, leaf: Leaf };
+            var Icon = icons[highlight.icon] || Mountain;
+            return h(
+              GlassCard, { key: highlight.label, className: "p-6" },
+              h("div", { className: "flex gap-3 items-start" },
+                h("div", { className: "w-10 h-10 rounded-lg bg-emerald-500/20 flex items-center justify-center flex-shrink-0" },
+                  h(Icon, { size: 20, className: "text-emerald-400" })
+                ),
+                h("div", null,
+                  h("div", { className: "font-semibold text-sm" }, highlight.label),
+                  h("div", { className: "text-[13px] text-white/60 mt-1" }, highlight.description)
+                )
+              )
+            );
+          })
+        ),
+        h(
+          GlassCard, { className: "p-6 md:p-8" },
+          h("h3", { className: "text-lg font-semibold mb-4" }, "Why Visit Krem Chympe?"),
+          h("ul", { className: "space-y-2" },
+            (CONTENT.destinationDetails.keyFeatures || []).map(function (feature) {
+              return h("li", { key: feature, className: "flex gap-3 text-[13px]" },
+                h("span", { className: "text-emerald-400 font-bold" }, "✓"),
+                feature
+              );
+            })
+          )
+        )
+      ),
+      SECTIONS.gallery && h(
+        GlassCard, { className: "p-6 md:p-8" },
+        h(
+          "div", { className: "flex flex-wrap justify-between items-center gap-4" },
+          h("h3", { className: "text-2xl font-semibold" }, t("ourGallery", "Our Gallery"), h("br"), h("span", { className: "text-white/50 text-base font-normal" }, GALLERY_PAGE.subtitle)),
+          h("div", { className: "flex gap-2 flex-wrap" }, GALLERY_PAGE.filters.map(function (p) {
+            return h("button", { key: p, onClick: function () { setGalleryFilter(p); }, className: "px-4 py-1.5 rounded-full text-xs border transition " + (galleryFilter === p ? "bg-white text-black border-white" : "bg-white/5 border-white/10 hover:bg-white/10") }, p);
+          }))
+        ),
+        h("div", { className: "mt-6 grid grid-cols-12 gap-3 auto-rows-[140px]" }, CONTENT.galleryImages.filter(function (p) { return galleryFilter === "All" || p.cat === galleryFilter; }).map(function (p) {
+          return h(
+            "div", { key: p.id, className: p.span + " rounded-[16px] overflow-hidden border border-white/10 relative group" },
+            h("img", { src: p.src, className: "w-full h-full object-cover group-hover:scale-110 transition duration-700" }),
+            h("div", { className: "absolute inset-0 bg-black/10 group-hover:bg-black/0 transition" }),
+            h("div", { className: "absolute bottom-2 left-2 px-2 py-1 rounded-full bg-black/50 backdrop-blur text-[10px] border border-white/10" }, p.cat)
+          );
+        })),
+        h("div", { className: "mt-6 flex justify-center" }, h("a", { href: CONTENT.instagram, target: "_blank", className: "px-6 py-2.5 rounded-full bg-white/10 border border-white/10 hover:bg-white/15 text-sm flex items-center gap-2" }, h(Camera, { size: 16 }), GALLERY_PAGE.viewAllLabel))
       )
     );
 
@@ -770,25 +828,6 @@
           var Icon = icons[i] || Shield;
           return h("span", { key: label, className: "flex items-center gap-2" }, h(Icon, { size: 14 }), " " + label);
         })
-      ),
-      SECTIONS.gallery && h(
-        GlassCard, { className: "p-6 md:p-8" },
-        h(
-          "div", { className: "flex flex-wrap justify-between items-center gap-4" },
-          h("h3", { className: "text-2xl font-semibold" }, t("ourGallery", "Our Gallery"), h("br"), h("span", { className: "text-white/50 text-base font-normal" }, GALLERY_PAGE.subtitle)),
-          h("div", { className: "flex gap-2 flex-wrap" }, GALLERY_PAGE.filters.map(function (p) {
-            return h("button", { key: p, onClick: function () { setGalleryFilter(p); }, className: "px-4 py-1.5 rounded-full text-xs border transition " + (galleryFilter === p ? "bg-white text-black border-white" : "bg-white/5 border-white/10 hover:bg-white/10") }, p);
-          }))
-        ),
-        h("div", { className: "mt-6 grid grid-cols-12 gap-3 auto-rows-[140px]" }, CONTENT.galleryImages.filter(function (p) { return galleryFilter === "All" || p.cat === galleryFilter; }).map(function (p) {
-          return h(
-            "div", { key: p.id, className: p.span + " rounded-[16px] overflow-hidden border border-white/10 relative group" },
-            h("img", { src: p.src, className: "w-full h-full object-cover group-hover:scale-110 transition duration-700" }),
-            h("div", { className: "absolute inset-0 bg-black/10 group-hover:bg-black/0 transition" }),
-            h("div", { className: "absolute bottom-2 left-2 px-2 py-1 rounded-full bg-black/50 backdrop-blur text-[10px] border border-white/10" }, p.cat)
-          );
-        })),
-        h("div", { className: "mt-6 flex justify-center" }, h("a", { href: CONTENT.instagram, target: "_blank", className: "px-6 py-2.5 rounded-full bg-white/10 border border-white/10 hover:bg-white/15 text-sm flex items-center gap-2" }, h(Camera, { size: 16 }), GALLERY_PAGE.viewAllLabel))
       )
     );
 
