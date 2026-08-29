@@ -540,7 +540,7 @@
         },
         privatePackage: {
           badge: "Private Tour",
-          name: "Private Package",
+          name: "Private Tour",
           priceUnit: "Fully customizable",
           features: [
             "Optional 4×4 jeep",
