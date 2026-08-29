@@ -288,23 +288,32 @@
           {
             icon: "mountain",
             label: "India's 5th Longest Cave",
-            description: "10.5+ kilometers of mapped passages with stunning limestone formations and underground lakes"
+            description: "Krem Chympe is India's fifth-longest cave system, with approximately 10.5 kilometers of mapped passages. "Krem," in the local Khasi language, means "cave." This massive river cave system is also known as the "Elephant Cave" due to the discovery of elephant bones in the area. Located in the Jaintia Hills district, which is home to more than 1,200 caves—the highest concentration on the Indian subcontinent—Krem Chympe stands out as a unique "resurgent cave" where an underground river emerges after its subterranean journey."
           },
           {
             icon: "water",
             label: "Golden Orchid Chamber",
-            description: "A breathtaking underground chamber featuring magnificent limestone formations and cascading waters"
+            description: "Within the cave system lies the stunning "Golden Orchid Chamber," featuring magnificent stalactites and stalagmites with golden-hued mineral deposits that shimmer like a field of flowers under torchlight."
           },
           {
             icon: "users",
             label: "50+ Natural Limestone Dams",
-            description: "Unique geological formations (gours) creating natural pools throughout the cave system"
+            description: "The cave is renowned for over 50 natural limestone dams known locally as "gours." These formations, some reaching heights of 12 meters, are created by the high concentration of calcium carbonate in the cave water—a testament to millions of years of geological transformation."
           },
           {
             icon: "leaf",
             label: "World's Largest Blind Cavefish",
-            description: "Home to rare cave-adapted species including the fascinating Neolissochilus pnar"
-          }
+            description: "The cave is home to the world's largest species of blind cavefish (Neolissochilus pnar), reaching lengths of up to 40 centimeters. These eyeless, albino giants represent a remarkable example of evolution in extreme environments."
+          },
+           {
+           icon: "cave",
+            label: "Cave-Adapted Bat Colonies",
+            description: "Multiple bat species find refuge within the cave, their guano providing essential nutrients for the subterranean food chain."
+          },
+           {
+           icon: "eco",
+            label: "Delicate Ecosystem",
+            description: "The cave's unique environment supports organisms that have evolved to survive in total darkness and isolation, making it a living laboratory of evolutionary adaptation."
         ],
         keyFeatures: [
           "Resurgent cave with underground river system",
