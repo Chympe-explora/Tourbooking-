@@ -403,7 +403,7 @@
     // it stays in sync everywhere it's shown or enforced — falls back to
     // 500 if an older/incomplete PRICES object doesn't define it.
     var minAdvance = PRICES.minAdvance || 500;
-    var advanceState = useState(minAdvance); var advance = advanceState[0], setAdvance = advanceState[1];
+    var advanceState = useState(""); var advance = advanceState[0], setAdvance = advanceState[1];
     var payTabState = useState("qr"); var payTab = payTabState[0], setPayTab = payTabState[1];
     var copiedState = useState(""); var copied = copiedState[0], setCopied = copiedState[1];
 
@@ -1435,7 +1435,7 @@
             h(
               "div", null,
               h("label", { className: "text-xs text-white/60" }, "Advance Payment (Min " + money(minAdvance) + ")"),
-              h("input", { type: "number", min: minAdvance, value: advance, onChange: function (e) { setAdvance(Math.max(0, Number(e.target.value))); }, className: "mt-2 w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 outline-none text-sm" }),
+              h("input", { type: "number", min: minAdvance, value: advance, placeholder: "Enter amount (min " + money(minAdvance) + ")", onChange: function (e) { var v = e.target.value; setAdvance(v === "" ? "" : Math.max(0, Number(v))); }, className: "mt-2 w-full px-4 py-3 rounded-xl bg-white/5 border border-white/10 outline-none text-sm" }),
               advance < minAdvance && h("div", { className: "text-[11px] text-red-300 mt-2" }, PAY.advanceHelperText),
               h("div", { className: "mt-2 text-xs text-white/50" }, t("balanceLeftLabel", "Balance left to pay on arrival: ₹"), balanceLeft)
             ),
