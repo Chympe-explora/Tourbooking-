@@ -793,7 +793,7 @@
         phone: "+91 8787679579",
         email: "chympeexplora@gmail.com",
         followTitle: "Follow Us On",
-        importantLinkTitle: "Important Link",
+        importantLinkTitle: "Important 👇",
         refundPolicyLabel: "Refund Policy",
         copyright: "Copyright © Team Chympe Explora. All rights reserved."
       },
