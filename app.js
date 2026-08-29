@@ -1527,7 +1527,6 @@
     // Pages 2 and 3 each have their own dedicated call-to-action button
     // (package cards, and the booking form's "Next" submit button), so the
     // generic bottom-nav "Next" only needs to handle page 1.
-    var totalPages = 6;
     var bottomNav = page !== 7 && h(
       "div", { className: "fixed bottom-0 inset-x-0 z-30 p-3 md:p-4 pointer-events-none" },
       h(
@@ -1539,7 +1538,6 @@
           },
           className: "px-5 py-2 rounded-full bg-white/10 border border-white/10 text-sm flex items-center gap-2 disabled:opacity-40"
         }, h(ArrowLeft, { size: 16 }), t("back", " Back")),
-        h("div", { className: "flex items-center gap-2 text-[11px] text-white/40" }, h("span", { className: "w-2 h-2 rounded-full bg-emerald-400 animate-pulse" }), " Page ", page, " / ", totalPages),
         page === 1 && h("button", {
           onClick: function () { setPage(2); },
           className: "px-6 py-2 rounded-full bg-[#2E8B57] hover:bg-[#257a4b] text-sm font-medium flex items-center gap-2"
