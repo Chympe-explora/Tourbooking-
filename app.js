@@ -145,6 +145,9 @@
     ["path", { d: "M21 15V2a5 5 0 0 0-5 5v6c0 1.1.9 2 2 2h3Zm0 0v7" }]
   ]);
   var X = makeIcon([["path", { d: "M18 6 6 18" }], ["path", { d: "m6 6 12 12" }]]);
+  // "Cave" icon — a simple tunnel/arch shape, used for cave-themed highlight
+  // cards (icon: "cave" in config.js)
+  var CaveIcon = makeIcon([["path", { d: "M3 21h18" }], ["path", { d: "M5 21V10a7 7 0 0 1 14 0v11" }]]);
 
   // ---------------------------------------------------------------------
   // Shared little components
@@ -169,6 +172,61 @@
   }
 
   function money(n) { return "₹" + Number(n || 0).toLocaleString("en-IN"); }
+
+  // A small auto-sliding photo strip. Give it a list of image file names
+  // via the "images" prop (e.g. from a highlight's images: [...] list in
+  // config.js) and it slides to the next one every few seconds. Shows
+  // nothing if the list is empty; shows a single still photo (no arrows/
+  // dots/sliding) if there's only one.
+  function ImageSlider(props) {
+    var images = (props.images || []).filter(Boolean);
+    var idxState = useState(0);
+    var idx = idxState[0], setIdx = idxState[1];
+
+    useEffect(function () {
+      if (images.length < 2) return undefined;
+      var timer = setInterval(function () {
+        setIdx(function (i) { return (i + 1) % images.length; });
+      }, props.intervalMs || 4000);
+      return function () { clearInterval(timer); };
+    }, [images.length]);
+
+    if (images.length === 0) return null;
+
+    var safeIdx = idx % images.length;
+
+    return h(
+      "div", { className: "relative mt-4 rounded-xl overflow-hidden aspect-[16/9] bg-black/20" },
+      h("img", { key: safeIdx, src: images[safeIdx], className: "w-full h-full object-cover" }),
+      images.length > 1 && h(
+        "div", { className: "absolute inset-0 flex items-center justify-between px-2" },
+        h(
+          "button",
+          {
+            onClick: function () { setIdx(function (i) { return (i - 1 + images.length) % images.length; }); },
+            className: "w-7 h-7 rounded-full bg-black/50 hover:bg-black/70 flex items-center justify-center text-white",
+            "aria-label": "Previous photo"
+          },
+          h(ArrowLeft, { size: 14 })
+        ),
+        h(
+          "button",
+          {
+            onClick: function () { setIdx(function (i) { return (i + 1) % images.length; }); },
+            className: "w-7 h-7 rounded-full bg-black/50 hover:bg-black/70 flex items-center justify-center text-white",
+            "aria-label": "Next photo"
+          },
+          h(ArrowRight, { size: 14 })
+        )
+      ),
+      images.length > 1 && h(
+        "div", { className: "absolute bottom-1.5 inset-x-0 flex justify-center gap-1.5" },
+        images.map(function (_, i) {
+          return h("span", { key: i, className: "w-1.5 h-1.5 rounded-full " + (i === safeIdx ? "bg-white" : "bg-white/40") });
+        })
+      )
+    );
+  }
 
   // ---------------------------------------------------------------------
   // Pricing logic — every number below is read from window.KC_PRICES only
@@ -680,7 +738,7 @@
         ),
         h("div", { className: "grid md:grid-cols-2 gap-6" },
           (CONTENT.destinationDetails.highlights || []).map(function (highlight) {
-            var icons = { mountain: Mountain, water: Compass, users: Users, leaf: Leaf };
+            var icons = { mountain: Mountain, water: Compass, users: Users, leaf: Leaf, cave: CaveIcon, eco: Leaf };
             var Icon = icons[highlight.icon] || Mountain;
             return h(
               GlassCard, { key: highlight.label, className: "p-6" },
@@ -692,7 +750,8 @@
                   h("div", { className: "font-semibold text-sm" }, highlight.label),
                   h("div", { className: "text-[13px] text-white/60 mt-1" }, highlight.description)
                 )
-              )
+              ),
+              h(ImageSlider, { images: highlight.images || [] })
             );
           })
         ),

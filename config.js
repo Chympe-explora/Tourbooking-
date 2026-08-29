@@ -281,6 +281,20 @@
       ],
 
       // ---- Destination Details (featured on home page) ----
+      //
+      // ⚠️  IMPORTANT — a rule just for THIS section:
+      // Inside any "description" text below, never type a straight double
+      // quote mark ( " ) — the website uses " " to mark where text starts
+      // and ends, so a second one in the middle of your sentence breaks
+      // the whole site (blank page). If you want to quote a word inside a
+      // description, use single quotes instead, like this: 'Krem'
+      //
+      // Each highlight card can also show a little auto-sliding photo
+      // strip under its text. Just list image file names (same folder as
+      // this file, spelling/CAPS must match exactly) inside that
+      // highlight's "images": [ ... ] list, in the order you want them to
+      // slide. Leave it as images: [] (empty) to show no photos for that
+      // card. You can list 1 photo (no sliding, just shows it) or many.
       destinationDetails: {
         title: "About Krem Chympe",
         subtitle: "India's Fifth-Longest Cave System",
@@ -288,32 +302,39 @@
           {
             icon: "mountain",
             label: "India's 5th Longest Cave",
-            description: "Krem Chympe is India's fifth-longest cave system, with approximately 10.5 kilometers of mapped passages. "Krem," in the local Khasi language, means "cave." This massive river cave system is also known as the "Elephant Cave" due to the discovery of elephant bones in the area. Located in the Jaintia Hills district, which is home to more than 1,200 caves—the highest concentration on the Indian subcontinent—Krem Chympe stands out as a unique "resurgent cave" where an underground river emerges after its subterranean journey."
+            description: "Krem Chympe is India's fifth-longest cave system, with approximately 10.5 kilometers of mapped passages. 'Krem,' in the local Khasi language, means 'cave.' This massive river cave system is also known as the 'Elephant Cave' due to the discovery of elephant bones in the area. Located in the Jaintia Hills district, which is home to more than 1,200 caves—the highest concentration on the Indian subcontinent—Krem Chympe stands out as a unique 'resurgent cave' where an underground river emerges after its subterranean journey.",
+            images: ["Cave entrance.jpg", "Cave diving.jpg"]
           },
           {
             icon: "water",
             label: "Golden Orchid Chamber",
-            description: "Within the cave system lies the stunning "Golden Orchid Chamber," featuring magnificent stalactites and stalagmites with golden-hued mineral deposits that shimmer like a field of flowers under torchlight."
+            description: "Within the cave system lies the stunning 'Golden Orchid Chamber,' featuring magnificent stalactites and stalagmites with golden-hued mineral deposits that shimmer like a field of flowers under torchlight.",
+            images: ["Blue water cave.jpg", "Rock formations.jpg"]
           },
           {
             icon: "users",
             label: "50+ Natural Limestone Dams",
-            description: "The cave is renowned for over 50 natural limestone dams known locally as "gours." These formations, some reaching heights of 12 meters, are created by the high concentration of calcium carbonate in the cave water—a testament to millions of years of geological transformation."
+            description: "The cave is renowned for over 50 natural limestone dams known locally as 'gours.' These formations, some reaching heights of 12 meters, are created by the high concentration of calcium carbonate in the cave water—a testament to millions of years of geological transformation.",
+            images: ["Rock formations.jpg", "Blue water cave.jpg"]
           },
           {
             icon: "leaf",
             label: "World's Largest Blind Cavefish",
-            description: "The cave is home to the world's largest species of blind cavefish (Neolissochilus pnar), reaching lengths of up to 40 centimeters. These eyeless, albino giants represent a remarkable example of evolution in extreme environments."
+            description: "The cave is home to the world's largest species of blind cavefish (Neolissochilus pnar), reaching lengths of up to 40 centimeters. These eyeless, albino giants represent a remarkable example of evolution in extreme environments.",
+            images: ["Cave diving.jpg"]
           },
-           {
-           icon: "cave",
+          {
+            icon: "cave",
             label: "Cave-Adapted Bat Colonies",
-            description: "Multiple bat species find refuge within the cave, their guano providing essential nutrients for the subterranean food chain."
+            description: "Multiple bat species find refuge within the cave, their guano providing essential nutrients for the subterranean food chain.",
+            images: ["Cave entrance.jpg"]
           },
-           {
-           icon: "eco",
+          {
+            icon: "eco",
             label: "Delicate Ecosystem",
-            description: "The cave's unique environment supports organisms that have evolved to survive in total darkness and isolation, making it a living laboratory of evolutionary adaptation."
+            description: "The cave's unique environment supports organisms that have evolved to survive in total darkness and isolation, making it a living laboratory of evolutionary adaptation.",
+            images: ["Trekking.jpg", "Camping.jpg"]
+          }
         ],
         keyFeatures: [
           "Resurgent cave with underground river system",
