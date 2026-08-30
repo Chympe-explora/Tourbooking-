@@ -309,31 +309,31 @@
             icon: "mountain",
             label: "India's 5th Longest Cave",
             description: "Krem Chympe is India's fifth-longest cave system, with approximately 10.5 kilometers of mapped passages. 'Krem,' in the local Khasi language, means 'cave.' This massive river cave system is also known as the 'Elephant Cave' due to the discovery of elephant bones in the area. Located in the Jaintia Hills district, which is home to more than 1,200 caves—the highest concentration on the Indian subcontinent—Krem Chympe stands out as a unique 'resurgent cave' where an underground river emerges after its subterranean journey.",
-            images: ["Cave Lagoon.jpg"]
+            images: ["Cave Lagoon.jpg", "Cave Lagoon.jpg"]
           },
           {
             icon: "water",
             label: "Golden Orchid Chamber",
             description: "Within the cave system lies the stunning 'Golden Orchid Chamber,' featuring magnificent stalactites and stalagmites with golden-hued mineral deposits that shimmer like a field of flowers under torchlight.",
-            images: ["Golden Orchid Formation.jpg"]
+            images: ["Golden Orchid Formation.jpg", "Golden Orchid Formation.jpg"]
           },
           {
             icon: "users",
             label: "50+ Natural Limestone Dams",
             description: "The cave is renowned for over 50 natural limestone dams known locally as 'gours.' These formations, some reaching heights of 12 meters, are created by the high concentration of calcium carbonate in the cave water—a testament to millions of years of geological transformation.",
-            images: ["Limestone Dam Pool.jpg"]
+            images: ["Limestone Dam Pool.jpg", "Limestone Dam Pool.jpg"]
           },
           {
             icon: "leaf",
             label: "World's Largest Blind Cavefish",
             description: "The cave is home to the world's largest species of blind cavefish (Neolissochilus pnar), reaching lengths of up to 40 centimeters. These eyeless, albino giants represent a remarkable example of evolution in extreme environments.",
-            images: ["Blind Cavefish.jpg"]
+            images: ["Blind Cavefish.jpg", "Blind Cavefish.jpg"]
           },
           {
             icon: "cave",
             label: "Cave-Adapted Bat Colonies",
             description: "Multiple bat species find refuge within the cave, their guano providing essential nutrients for the subterranean food chain.",
-            images: ["Bat Colony.jpg"]
+            images: ["Bat Colony.jpg", "Bat Colony.jpg"]
           },
           {
             icon: "eco",
@@ -414,6 +414,7 @@
           "Homestay (for overnight stays)",
           "Life Jacket for Every Visitor",
           "Certified Local Guide",
+           "Camping equipment's",
           "Basic First Aid Service",
           "Local, Freshly Cooked Food"
         ]
@@ -436,7 +437,7 @@
             items: [
               "Nearest big city: Shillong, about 120 km away.",
               "Starting point: Shillong ➡️ East Jaintia Hills ➡️ Brishyrnot ➡️ Krem Chympe waterfall.",
-              "From Brishyrnot it's roughly a 7 km forest trek (about 3–4 hours one way) to the cave entrance at khaddum.",
+              "From Brishyrnot it's roughly a 7 - 10 km forest trek (about 3–4 hours one way) to the cave entrance at khaddum.",
               "There are no signboards on the trail — this is an offbeat place, so a local guide is required, not optional."
             ]
           },
